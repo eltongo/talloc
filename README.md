@@ -22,7 +22,7 @@ Besides the fact that this is not meant to be used in the real world? I've only 
 
 ## How do I use this?
 
-As they say, a piece of code is worth a thousand words:
+As they say, a piece of code is worth a thousand words<sup>2</sup>:
 
 ```c
 #include <stdio.h>
@@ -97,8 +97,9 @@ It might be a good idea to try different variations of allocating and freeing me
 
 ## Do you have any benchmarks or performance stats?
 
-No. Feel free to produce your own if you're into that sort of thing. Efficiency and performance are very important on a real world memory allocator, but this one has no such ambitions. He wants to stay a wooden boy<sup>2</sup> for life!
+No. Feel free to produce your own if you're into that sort of thing. Efficiency and performance are very important on a real world memory allocator, but this one has no such ambitions. He wants to stay a wooden boy<sup>3</sup> for life!
 
 ---
 <sup>1</sup> If you can call torturing yourself fun!  
-<sup>2</sup> I hadn't made up my mind on whether this was a she, a he or an it. This settles it I guess.
+<sup>2</sup> Okay, nobody says that.  
+<sup>3</sup> I hadn't made up my mind on whether this was a she, a he or an it. This settles it I guess.
