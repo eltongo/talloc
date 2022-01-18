@@ -56,7 +56,7 @@ There are two functions you need to know:
  - `TAlloc_malloc(size_t)` - which allocated memory of a given size
  - `TAlloc_free(void *)` - which frees the given pointer
 
-There's also another function, which is useful if you want to see what the memory layout looks like. The function is `TAlloc_debug_print()`. As the name suggest, this function will print the layout of the memory at a certain point in time. Here's how to use it:
+There's also another function, which is useful if you want to see what the memory layout looks like. The function is `TAlloc_debug_print()`. As the name suggests, this function will print the layout of the memory at a certain point in time. Here's how to use it:
 
 ```c
 #include <stdio.h>
@@ -91,13 +91,13 @@ Arena at 0x1017dc000, 20004864 bytes, 40 reserved
 
 As you can see, in my machine this code has created two arenas. For each arena, the function will output the allocations and the free chunks, their addresses, and their sizes. For arenas, the number of bytes includes reserved space, whereas for chunks, the number of bytes does not include the reserved space.
 
-Now normally the allocator does not maintain any reference to allocated chunks. However, this function makes an educated guess about the type of chunk (e.g. allocated or free) based on the value where the magic should be. This should work fine, but I wrote this function in a hurry, so you never know...
+Now, normally the allocator does not maintain any reference to allocated chunks. However, this function makes an educated guess about the type of chunk (i.e. allocated or free) based on the value where the magic should be. This should work fine, but I wrote this function in a hurry, so you never know...
 
 It might be a good idea to try different variations of allocating and freeing memory, and then calling `TAlloc_debug_print()` to peek under the hood.
 
 ## Do you have any benchmarks or performance stats?
 
-No. Feel free to produce your own if you're into that sort of thing. Efficiency and performance are very important on a real world memory allocator, but this one has no such ambitions. He wants to stay a wooden boy<sup>3</sup> for life!
+No. Feel free to produce your own if you're into that sort of thing. Efficiency and performance are very important for a real world memory allocator, but this one has no such ambitions. He wants to stay a wooden boy<sup>3</sup> for life!
 
 ---
 <sup>1</sup> If you can call torturing yourself fun!  
