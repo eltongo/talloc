@@ -1,11 +1,17 @@
 #ifndef __TALLOC_H__
 #define __TALLOC_H__
 
-#define TALLOC_MAGIC 0xab91ea94 // magic for integrity checking
-#define TALLOC_ALLOC_PAGES 1000 // how many pages to allocate per arena
-
 #include <unistd.h>
+#include <stdint.h>
 #include <sys/mman.h>
+
+#if UINTPTR_MAX == UINT64_MAX
+    #define TALLOC_MAGIC 0xab91ea94be7fcc2aULL
+#else
+    #define TALLOC_MAGIC 0xab91ea94 // magic for integrity checking
+#endif
+
+#define TALLOC_ALLOC_PAGES 1000 // how many pages to allocate per arena
 
 // This struct represents a free chunk of memory
 // It's basically a node in a linked list of chunks
@@ -19,7 +25,7 @@ typedef struct __talloc_chunk_t {
 // the allocated memory we return a pointer to on allocation.
 typedef struct __talloc_header_t {
 	size_t size; // size of the allocated memory
-	int magic; // the magic field which should be equal to TALLOC_MAGIC
+	uintptr_t magic; // the magic field which should be equal to TALLOC_MAGIC
 } talloc_header_t;
 
 // This struct represents an arena. These are basically larger "chunks"
@@ -89,10 +95,10 @@ talloc_arena_t * TAlloc_create_arena(size_t space_needed) {
 
 	size_t to_allocate;
 
-	if (space_needed < state.minallocsize) {
+	if (space_needed <= state.minallocsize) {
 		// ensure we allocate at least state.minallocsize bytes
 		to_allocate = state.minallocsize;
-	} else if (space_needed > state.minallocsize) {
+	} else {
 		// check if not evenly divided by page size
 		// we always map multiples of page size
 		unsigned int add_one = space_needed % state.pagesize > 0;
