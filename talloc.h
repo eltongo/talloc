@@ -216,9 +216,9 @@ void TAlloc_free(void *ptr) {
 	}
 }
 
-// Find an arena that contains a free chunk big enough to accomodate
+// Find an arena that contains a free chunk big enough to accommodate
 // the given size.
-talloc_arena_t * TAlloc_get_accomodating_arena(size_t size) {
+talloc_arena_t * TAlloc_get_accommodating_arena(size_t size) {
 	talloc_arena_t *arena_node = state.arena_head;
 	while (arena_node && arena_node->max_free_space < size) arena_node = arena_node->next;
 	if (!arena_node) {
@@ -234,7 +234,7 @@ talloc_arena_t * TAlloc_get_accomodating_arena(size_t size) {
 //
 // This function will essentially
 //  - initialize the allocator state if necessary
-//  - find an arena that has a chunk big enough to accomodate the given size
+//  - find an arena that has a chunk big enough to accommodate the given size
 //    (or fail if not possible)
 //  - split the chunk of memory if it's bigger than necessary
 //  - update the free list of the arena
@@ -246,8 +246,8 @@ talloc_arena_t * TAlloc_get_accomodating_arena(size_t size) {
 void * TAlloc_malloc(size_t size) {
 	if (!state.initialized) TAlloc_initialize();
 	if (size == 0) return NULL;
-	// find the arena that contains a chunk that can accomodate this size
-	talloc_arena_t *arena = TAlloc_get_accomodating_arena(size);
+	// find the arena that contains a chunk that can accommodate this size
+	talloc_arena_t *arena = TAlloc_get_accommodating_arena(size);
 
 	// oops; cannot allocate any more space :(
 	if (!arena) return NULL;
